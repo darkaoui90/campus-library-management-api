@@ -1,11 +1,10 @@
-const User = require("../src/models/User");
+const User = require("../models/User")
 
 const register = async (req, res) => {
   try {
-    // 1. Get user information
+    
     const { name, email, password } = req.body;
 
-    // 2. Validate fields
     if (
       typeof name !== "string" ||
       !name.trim() ||
@@ -39,7 +38,6 @@ const register = async (req, res) => {
       });
     }
 
-    // 5. Create new user
     const user = new User({
       name: name.trim(),
       email: normalizedEmail,
@@ -47,10 +45,10 @@ const register = async (req, res) => {
       role: "learner"
     });
 
-    // 6. Save user to MongoDB
+  
     await user.save();
 
-    // 7. Return successful response
+
     return res.status(201).json({
       message: "User registered successfully",
       user: {
