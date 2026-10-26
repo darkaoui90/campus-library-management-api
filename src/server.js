@@ -6,6 +6,7 @@ const cors = require("cors");
 const connectDB = require("./config/db");
 
 const app = express() ;
+const authRoutes = require("./routes/authRoutes");
 
 
 app.use(cors());
@@ -19,6 +20,9 @@ app.get("/api/health", (req, res) => {
     message: "Campus Library API is running"
   });
 });
+
+app.use("/api/auth", authRoutes);
+
 
 
 const PORT = process.env.PORT || 5000;
