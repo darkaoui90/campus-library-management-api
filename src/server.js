@@ -11,7 +11,8 @@ const {
   authenticate,
   authorizeRoles
 } = require("./middlewares/authMiddleware"); 
-
+const bookRoutes = require("./routes/bookRoutes");
+const copyRoutes = require("./routes/copyRoutes");
 app.use(cors());
 app.use(express.json());
 
