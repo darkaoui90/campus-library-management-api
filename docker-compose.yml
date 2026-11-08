@@ -1,7 +1,18 @@
 services:
+  api:
+    build: .
+    ports:
+      - "5000:5000"
+    env_file: .env
+    environment:
+      MONGO_URI: mongodb://mongo:27017/campus_library
+      RUN_REMINDER_CRON: "true"
+    depends_on:
+      mongo:
+        condition: service_started
+    restart: unless-stopped
   mongo:
     image: mongo:8
-    container_name: campus-library-mongo
     ports:
       - "27017:27017"
     volumes:

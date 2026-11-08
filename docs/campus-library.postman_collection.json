@@ -1,0 +1,352 @@
+{
+  "info": {
+    "name": "Campus Library API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:5000"
+    },
+    {
+      "key": "token",
+      "value": ""
+    },
+    {
+      "key": "id",
+      "value": ""
+    },
+    {
+      "key": "bookId",
+      "value": ""
+    }
+  ],
+  "item": [
+    {
+      "name": "GET /api/health - Required role: public.",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": "{{baseUrl}}/api/health"
+      },
+      "response": []
+    },
+    {
+      "name": "GET /api/docs - Required role: public.",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": "{{baseUrl}}/api/docs"
+      },
+      "response": []
+    },
+    {
+      "name": "POST /api/auth/register - Required role: public.",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": "{{baseUrl}}/api/auth/register",
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"name\": \"\",\n  \"email\": \"\",\n  \"password\": \"\"\n}"
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "POST /api/auth/login - Required role: public.",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": "{{baseUrl}}/api/auth/login",
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"email\": \"\",\n  \"password\": \"\"\n}"
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "GET /api/books - Required role: authenticated.",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{token}}"
+          }
+        ],
+        "url": "{{baseUrl}}/api/books"
+      },
+      "response": []
+    },
+    {
+      "name": "POST /api/books - Required role: manager or admin.",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{token}}"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": "{{baseUrl}}/api/books",
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"title\": \"\",\n  \"author\": \"\",\n  \"description\": \"\"\n}"
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "GET /api/books/{id} - Required role: authenticated.",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{token}}"
+          }
+        ],
+        "url": "{{baseUrl}}/api/books/{{id}}"
+      },
+      "response": []
+    },
+    {
+      "name": "PUT /api/books/{id} - Required role: manager or admin.",
+      "request": {
+        "method": "PUT",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{token}}"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": "{{baseUrl}}/api/books/{{id}}",
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"title\": \"\",\n  \"author\": \"\",\n  \"description\": \"\"\n}"
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "POST /api/copies - Required role: manager or admin.",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{token}}"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": "{{baseUrl}}/api/copies",
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"bookId\": \"\",\n  \"inventoryCode\": \"\"\n}"
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "GET /api/copies/book/{bookId} - Required role: authenticated.",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{token}}"
+          }
+        ],
+        "url": "{{baseUrl}}/api/copies/book/{{bookId}}"
+      },
+      "response": []
+    },
+    {
+      "name": "GET /api/loans - Required role: authenticated.",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{token}}"
+          }
+        ],
+        "url": "{{baseUrl}}/api/loans"
+      },
+      "response": []
+    },
+    {
+      "name": "POST /api/loans - Required role: manager or admin.",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{token}}"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": "{{baseUrl}}/api/loans",
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"copyId\": \"\",\n  \"borrowerId\": \"\"\n}"
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "PATCH /api/loans/{id}/return - Required role: manager or admin.",
+      "request": {
+        "method": "PATCH",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{token}}"
+          }
+        ],
+        "url": "{{baseUrl}}/api/loans/{{id}}/return"
+      },
+      "response": []
+    },
+    {
+      "name": "GET /api/me/reminders - Required role: learner.",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{token}}"
+          }
+        ],
+        "url": "{{baseUrl}}/api/me/reminders"
+      },
+      "response": []
+    },
+    {
+      "name": "PATCH /api/me/reminders - Required role: learner.",
+      "request": {
+        "method": "PATCH",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{token}}"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": "{{baseUrl}}/api/me/reminders",
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"remindersEnabled\": \"\"\n}"
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "GET /api/admin/config - Required role: admin.",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{token}}"
+          }
+        ],
+        "url": "{{baseUrl}}/api/admin/config"
+      },
+      "response": []
+    },
+    {
+      "name": "PATCH /api/admin/config - Required role: admin.",
+      "request": {
+        "method": "PATCH",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{token}}"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": "{{baseUrl}}/api/admin/config",
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"loanDurationDays\": \"\",\n  \"emailEnabled\": \"\",\n  \"reminderJobEnabled\": \"\",\n  \"reminderFrequency\": \"\",\n  \"reminderAnticipationDays\": \"\"\n}"
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "POST /api/admin/jobs/loan-reminders - Required role: admin.",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{token}}"
+          }
+        ],
+        "url": "{{baseUrl}}/api/admin/jobs/loan-reminders"
+      },
+      "response": []
+    },
+    {
+      "name": "GET /api/stats - Required role: manager or admin.",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{token}}"
+          }
+        ],
+        "url": "{{baseUrl}}/api/stats"
+      },
+      "response": []
+    },
+    {
+      "name": "GET /api/test/manager - Required role: manager or admin.",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{token}}"
+          }
+        ],
+        "url": "{{baseUrl}}/api/test/manager"
+      },
+      "response": []
+    }
+  ]
+}

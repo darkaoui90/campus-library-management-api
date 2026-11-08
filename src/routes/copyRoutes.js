@@ -4,7 +4,7 @@ const router = express.Router();
 const {
   createCopy,
   getCopies
-} = require("../controllers/copyController");
+} = require("../controllers/CopyController");
 
 const {
   authenticate,

@@ -13,6 +13,11 @@ const {
 } = require("./middlewares/authMiddleware"); 
 const bookRoutes = require("./routes/bookRoutes");
 const copyRoutes = require("./routes/copyRoutes");
+const loanRoutes = require("./routes/loanRoutes");
+const adminRoutes = require("./routes/adminRoutes");
+const statsRoutes = require("./routes/statsRoutes");
+const meRoutes = require("./routes/meRoutes");
+const Loan = require("./models/Loan");
 app.use(cors());
 app.use(express.json());
 
@@ -26,6 +31,16 @@ app.get("/api/health", (req, res) => {
 });
 
 app.use("/api/auth", authRoutes);
+app.use("/api/books", bookRoutes);
+app.use("/api/copies", copyRoutes);
+app.use("/api/loans", loanRoutes);
+app.use("/api/admin", adminRoutes);
+app.use("/api/stats", statsRoutes);
+app.use("/api/me", meRoutes);
+const swaggerUi = require("swagger-ui-express");
+const openapi = require("../docs/openapi");
+app.get("/api/docs", swaggerUi.setup(openapi));
+app.use("/api/docs", swaggerUi.serve, swaggerUi.setup(openapi));
 
 
 
@@ -45,6 +60,8 @@ app.get(
 
 const startServer = async () => {
   await connectDB();
+  await Loan.init();
+  if (process.env.RUN_REMINDER_CRON !== "false") require("./services/cronService").startCron();
 
 
 

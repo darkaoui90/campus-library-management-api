@@ -1,13 +1,14 @@
 const mongoose = require("mongoose");
 const Book = require("../models/Book");
 const Copy = require("../models/Copy");
+const Loan = require("../models/Loan");
 
 
 const createCopy = async (req, res) => {
   try {
-    const { bookId, inventoryCode } = req.body;
+    const { bookId, inventoryCode } = req.body || {};
 
-    
+
     if (
       typeof bookId !== "string" ||
       !mongoose.isValidObjectId(bookId) ||
@@ -19,7 +20,7 @@ const createCopy = async (req, res) => {
       });
     }
 
-   
+
     const book = await Book.findById(bookId);
 
     if (!book) {
@@ -84,7 +85,9 @@ const getCopies = async (req, res) => {
 
     const copies = await Copy.find({ bookId });
 
-    return res.status(200).json(copies);
+    const active = await Loan.find({ copyId: { $in: copies.map(copy => copy._id) }, returnedAt: null }).distinct("copyId");
+    const borrowed = new Set(active.map(id => String(id)));
+    return res.status(200).json(copies.map(copy => ({ ...copy.toObject(), available: !borrowed.has(String(copy._id)) })));
 
   } catch (error) {
     console.error("Get copies error:", error.message);
